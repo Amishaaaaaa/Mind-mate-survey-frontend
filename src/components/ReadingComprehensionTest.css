@@ -1,0 +1,67 @@
+.reading-container {
+  min-height: 100vh;
+  min-width: 100vw;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: stretch;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+.reading-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  min-height: 100vh;
+  margin-top: 200px;
+  padding: 0 16px;
+  box-sizing: border-box;
+}
+
+.reading-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px #ccc;
+  max-width: 700px;
+  width: 100%;
+  padding: 32px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.reading-card h1,
+.reading-card h2 {
+  text-align: center;
+}
+
+.reading-list {
+  text-align: left;
+  font-size: 18px;
+  margin: 24px auto;
+  max-width: 600px;
+}
+
+@media (max-width: 600px) {
+  .reading-content {
+    margin-top: 54px;
+    padding: 0 6px;
+    min-height: calc(100vh - 54px);
+  }
+  .reading-card {
+    padding: 16px 6px;
+  }
+  .reading-list {
+    font-size: 16px;
+    max-width: 100%;
+  }
+} 
