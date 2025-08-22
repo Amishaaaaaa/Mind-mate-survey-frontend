@@ -167,12 +167,12 @@ function LoginSignup({ setIsLoggedIn }) {
                 />
               </div>
 
-              {/* <p style={{ marginTop: 18, fontSize: 16 }}>
+              <p style={{ marginTop: 18, fontSize: 16 }}>
                 Don't have an account?{' '}
                 <span style={{ color: '#2980b9', cursor: 'pointer', fontWeight: 600 }} onClick={() => setIsLogin(false)}>
                   Sign up
                 </span>
-              </p> */}
+              </p>
             </>
           ) : (
             <>
