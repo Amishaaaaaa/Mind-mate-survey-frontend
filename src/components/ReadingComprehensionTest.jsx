@@ -4,6 +4,7 @@ import './Header.css';
 import './ReadingComprehensionTest.css';
 import { useNavigate } from 'react-router-dom';
 import { TailSpin } from "react-loader-spinner";
+import BASE_URL from '../config';
 
 const READING_TIME_LIMIT = 90; 
 const FEEDBACK_DELAY = 1500; 
@@ -33,7 +34,7 @@ function ReadingComprehensionTest({ isLoggedIn, onLogout }) {
   useEffect(() => {
     if (stage === 'results') {
       const email = localStorage.getItem('email');
-      fetch('http://127.0.0.1:8000/comprehension-results', {
+      fetch(`${BASE_URL}/comprehension-results`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -52,7 +53,7 @@ function ReadingComprehensionTest({ isLoggedIn, onLogout }) {
 
   const handleReadPassage = () => {
     setLoading(true);
-    fetch('http://127.0.0.1:8000/get-standard-passage')
+    fetch(`${BASE_URL}/get-standard-passage`)
       .then((res) => res.json())
       .then((data) => {
         setPassage(data.passage);

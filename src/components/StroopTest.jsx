@@ -3,6 +3,7 @@ import Header from './Header';
 import './Header.css';
 import './StroopTest.css';
 import { useNavigate } from 'react-router-dom';
+import BASE_URL from '../config';
 
 const TEST_DURATION = 5;
 const FEEDBACK_DURATION = 200;
@@ -143,7 +144,7 @@ function StroopTest({ isLoggedIn, onLogout }) {
 
   const updateStroopResultsInBackend = async (email, correctItems, avgRT) => {
     try {
-      const response = await fetch('http://127.0.0.1:8000/update-stroop-results', {
+      const response = await fetch(`${BASE_URL}/update-stroop-results`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -6,6 +6,7 @@ import CardNavigator from './CardNavigator';
 import { Card, CardContent, Typography, Button, Box } from '@mui/material';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import BASE_URL from '../config';
 
 function Dashboard({ isLoggedIn, onLogout }) {
   const [loading, setLoading] = useState(false);
@@ -24,7 +25,7 @@ function Dashboard({ isLoggedIn, onLogout }) {
   useEffect(() => {
     const fetchUserData = async (username) => {
       try {
-        const res = await axios.get(`http://localhost:8000/get-user-data/${username}`);
+        const res = await axios.get(`${BASE_URL}/get-user-data/${username}`);
         const fetched = res.data.user_data;
         setUserData(fetched);
 
@@ -47,7 +48,7 @@ function Dashboard({ isLoggedIn, onLogout }) {
 
     async function fetchSurveyStatus() {
       try {
-        const res = await axios.get(`http://localhost:8000/survey-completed/${username}`);
+        const res = await axios.get(`${BASE_URL}/survey-completed/${username}`);
         setSurveyCompleted(!!(res.data && res.data.completed));
       } catch (err) {
         setSurveyCompleted(false);
@@ -64,7 +65,7 @@ function Dashboard({ isLoggedIn, onLogout }) {
 useEffect(() => {
   const callmodel = async () => {
     try {
-      await axios.get(`http://localhost:8000/analyze-scores/${username}`);
+      await axios.get(`${BASE_URL}/analyze-scores/${username}`);
       console.log("Model response added successfully.");
     } catch (err) {
       console.error("Model call failed:", err);

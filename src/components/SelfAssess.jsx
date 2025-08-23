@@ -11,6 +11,7 @@ import {
   Select,
   MenuItem
 } from '@mui/material';
+import BASE_URL from '../config';
 
 const SelfAssess = ({ isLoggedIn, onLogout }) => {
   const { subject } = useParams();
@@ -44,7 +45,7 @@ const SelfAssess = ({ isLoggedIn, onLogout }) => {
     };
 
     try {
-      const res = await fetch('http://localhost:8000/save-content-preference', {
+      const res = await fetch(`${BASE_URL}/save-content-preference`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)

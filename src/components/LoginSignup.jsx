@@ -5,6 +5,7 @@ import { jwtDecode } from 'jwt-decode';
 import Header from './Header';
 import './Header.css';
 import './ReadingComprehensionTest.css';
+import BASE_URL from '../config';
 
 function LoginSignup({ setIsLoggedIn }) {
   const [isLogin, setIsLogin] = useState(true);
@@ -50,7 +51,7 @@ function LoginSignup({ setIsLoggedIn }) {
         grade: formData.grade
       };
 
-      const response = await fetch(`http://localhost:8000${endpoint}`, {
+      const response = await fetch(`${BASE_URL}/${endpoint}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -95,7 +96,7 @@ function LoginSignup({ setIsLoggedIn }) {
       const decoded = jwtDecode(credentialResponse.credential);
       const { email, name, sub: googleId } = decoded;
 
-      const response = await fetch('http://localhost:8000/google-login', {
+      const response = await fetch(`${BASE_URL}/google-login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, name, google_id: googleId })

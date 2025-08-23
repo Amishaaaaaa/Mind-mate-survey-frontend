@@ -4,6 +4,7 @@ import { Card, CardContent, Typography, Button, Box, Radio, RadioGroup, FormCont
 import { useNavigate, useLocation } from 'react-router-dom';
 import { TailSpin } from "react-loader-spinner";
 import ReactMarkdown from 'react-markdown';
+import BASE_URL from '../config';
 
 const initialSectionLabels = [
   { key: 'low', label: 'Low' },
@@ -49,7 +50,7 @@ function Content({ isLoggedIn, onLogout }) {
       setLoadingQuestions(true);
       setShowTest(false);
       try {
-        const res = await fetch(`http://localhost:8000/get-passage-and-questions?type=${subject}&level=${sectionOrder[currentSection].key}&username=${username}`);
+        const res = await fetch(`${BASE_URL}/get-passage-and-questions?type=${subject}&level=${sectionOrder[currentSection].key}&username=${username}`);
         if (!res.ok) throw new Error('Failed to fetch passage and questions');
         const data = await res.json();
   
@@ -145,7 +146,7 @@ function Content({ isLoggedIn, onLogout }) {
     });
 
     try {
-      const res = await fetch('http://localhost:8000/save-test-score', {
+      const res = await fetch(`${BASE_URL}/save-test-score`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -341,7 +342,7 @@ function Content({ isLoggedIn, onLogout }) {
                     order: `${viewedOrder}`
                   };
                   try {
-                    const res = await fetch('http://localhost:8000/save-content-view-order', {
+                    const res = await fetch(`${BASE_URL}/save-content-view-order`, {
                       method: 'POST',
                       headers: { 'Content-Type': 'application/json' },
                       body: JSON.stringify(payload)

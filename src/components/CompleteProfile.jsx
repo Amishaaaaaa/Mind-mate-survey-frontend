@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import BASE_URL from '../config';
 
 function CompleteProfile() {
   const [formData, setFormData] = useState({
@@ -21,7 +22,7 @@ function CompleteProfile() {
     const username = localStorage.getItem('username');
 
     try {
-      const response = await fetch('http://localhost:8000/update-profile', {
+      const response = await fetch(`${BASE_URL}/update-profile`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
