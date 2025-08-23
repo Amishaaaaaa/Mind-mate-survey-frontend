@@ -51,7 +51,7 @@ function LoginSignup({ setIsLoggedIn }) {
         grade: formData.grade
       };
 
-      const response = await fetch(`${BASE_URL}/${endpoint}`, {
+      const response = await fetch(`${BASE_URL}${endpoint}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
