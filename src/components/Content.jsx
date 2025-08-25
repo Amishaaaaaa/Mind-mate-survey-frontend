@@ -194,9 +194,9 @@ function Content({ isLoggedIn, onLogout }) {
       <main className="reading-content" style={{ alignItems: 'center', justifyContent: 'center' }}>
         <div className="reading-card" style={{ maxWidth: 700, width: '100%', margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <Typography variant="h5" sx={{ mb: 2 }} textAlign='center'>
-          {subject.charAt(0).toUpperCase() + subject.slice(1)} Content - {sectionOrder[currentSection].label} Level
+          {subject.charAt(0).toUpperCase() + subject.slice(1)} Content
           </Typography>
-          {!showTest && (
+          {!showTest && !testCompleted.every(Boolean) && (
             <>
               {!loadingContent && (
                 <Typography sx={{ mt: 1, fontStyle: 'italic', color: 'gray', textAlign: 'center' }}>
@@ -244,12 +244,12 @@ function Content({ isLoggedIn, onLogout }) {
               </Card>
               {!showTest && testCompleted[currentSection] && (
                 <Typography sx={{ mt: 3, color: 'green', textAlign: 'center' }}>
-                  Test completed for {sectionOrder[currentSection].label} Level.
+                  Test completed
                 </Typography>
               )}
               {!testCompleted[currentSection] && !loadingContent && (
                 <Button variant="contained" sx={{ mt: 3 }} onClick={handleStartTest}>
-                  Take Test for {sectionOrder[currentSection].label} Level
+                  Take Test
                 </Button>
               )}
             </>
@@ -324,7 +324,7 @@ function Content({ isLoggedIn, onLogout }) {
 
           {testCompleted[currentSection] && currentSection < 2 && (
             <Button variant="contained" sx={{ mt: 3 }} onClick={handleNextSection}>
-              Next: {sectionOrder[currentSection + 1].label} Level
+              Next
             </Button>
           )}
           {testCompleted[2] && (

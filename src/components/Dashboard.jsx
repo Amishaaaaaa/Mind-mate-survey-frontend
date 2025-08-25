@@ -53,7 +53,7 @@ function Dashboard({ isLoggedIn, onLogout }) {
         if (res.data.status === "success") {
           const passageData = res.data.passage_data;
           console.log("Passage data:", passageData);
-          setSubjectChosen(passageData.subject_chosen);  // ✅ store in state
+          setSubjectChosen(passageData.subject_chosen);
         }
       } catch (err) {
         console.error("Error fetching passage data:", err);
@@ -72,7 +72,7 @@ function Dashboard({ isLoggedIn, onLogout }) {
     if (username) {
       fetchSurveyStatus();
       fetchUserData(username);
-      fetchSubjectChosen(username);   // ✅ call here
+      fetchSubjectChosen(username); 
     }
   }, [username]);
 

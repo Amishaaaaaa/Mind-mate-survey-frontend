@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { TailSpin } from "react-loader-spinner";
 import BASE_URL from '../config';
 
-const READING_TIME_LIMIT = 90; 
+const READING_TIME_LIMIT = 180; 
 const FEEDBACK_DELAY = 1500; 
 
 function ReadingComprehensionTest({ isLoggedIn, onLogout }) {
