@@ -21,6 +21,7 @@ function Dashboard({ isLoggedIn, onLogout }) {
   const [stroopCompleted, setStroopCompleted] = useState(false);
   const [comprehensionCompleted, setComprehensionCompleted] = useState(false);
   const [surveyCompleted, setSurveyCompleted] = useState(false);
+  const [subjectChosen, setSubjectChosen] = useState(null);
 
   useEffect(() => {
     const fetchUserData = async (username) => {
@@ -46,6 +47,19 @@ function Dashboard({ isLoggedIn, onLogout }) {
       }
     };
 
+    const fetchSubjectChosen = async (username) => {
+      try {
+        const res = await axios.get(`${BASE_URL}/get-passage-data/${username}`);
+        if (res.data.status === "success") {
+          const passageData = res.data.passage_data;
+          console.log("Passage data:", passageData);
+          setSubjectChosen(passageData.subject_chosen);  // ✅ store in state
+        }
+      } catch (err) {
+        console.error("Error fetching passage data:", err);
+      }
+    };
+
     async function fetchSurveyStatus() {
       try {
         const res = await axios.get(`${BASE_URL}/survey-completed/${username}`);
@@ -58,9 +72,10 @@ function Dashboard({ isLoggedIn, onLogout }) {
     if (username) {
       fetchSurveyStatus();
       fetchUserData(username);
+      fetchSubjectChosen(username);   // ✅ call here
     }
-
   }, [username]);
+
 
 useEffect(() => {
   const callmodel = async () => {
@@ -143,16 +158,17 @@ useEffect(() => {
             boxShadow: '0 4px 16px rgba(0,0,0,0.05)',
           }}
         >
-          {userData && (
+          {/* {userData && (
             <Typography variant="h6" sx={{ alignSelf: 'flex-start', mb: 2, color: '#2c3e50' }}>
               Welcome {userData.name}
             </Typography>
-          )}
+          )} */}
 
           {stroopCompleted && comprehensionCompleted ? (
             <>
               <Typography variant="h5" sx={{ mb: 2, color: '#2c3e50' }}>
-                Choose Content to Read
+                <h3>Choose Content to Read:</h3> 
+                <p>(Subject can only be chosen once!)</p>
               </Typography>
               <Box
                 sx={{
@@ -176,9 +192,11 @@ useEffect(() => {
                     '&:hover': { backgroundColor: '#357ABD' },
                   }}
                   onClick={() => navigate('/content/english')}
+                  disabled={subjectChosen && subjectChosen !== 'english'} // ✅ disable if another chosen
                 >
                   English
                 </Button>
+
                 <Button
                   variant="contained"
                   sx={{
@@ -189,9 +207,11 @@ useEffect(() => {
                     '&:hover': { backgroundColor: '#8e44ec' },
                   }}
                   onClick={() => navigate('/content/history')}
+                  disabled={subjectChosen && subjectChosen !== 'history'} // ✅
                 >
                   History
                 </Button>
+
                 <Button
                   variant="contained"
                   sx={{
@@ -202,9 +222,11 @@ useEffect(() => {
                     '&:hover': { backgroundColor: '#218838' },
                   }}
                   onClick={() => navigate('/content/computer')}
+                  disabled={subjectChosen && subjectChosen !== 'computer'} // ✅
                 >
                   Computer
                 </Button>
+
               </Box>
 
               {loading && <div style={{ marginTop: 18 }}>Loading...</div>}

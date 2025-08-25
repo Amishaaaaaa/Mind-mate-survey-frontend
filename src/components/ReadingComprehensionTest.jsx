@@ -197,9 +197,13 @@ function ReadingComprehensionTest({ isLoggedIn, onLogout }) {
                       borderRadius: 8,
                       fontSize: 18,
                       lineHeight: 1.6,
-                      margin: '0 auto',
                       maxWidth: 600,
-                      textAlign: 'center',
+                      margin: '0 auto',
+                      textAlign: 'justify',
+                      whiteSpace: 'pre-wrap',
+                      wordWrap: 'break-word',
+                      overflowY: 'auto',
+                      maxHeight: '70vh'
                     }}
                   >
                     <h3 style={{ marginTop: 0, marginBottom: 18, fontWeight: 700 }}>
@@ -207,6 +211,7 @@ function ReadingComprehensionTest({ isLoggedIn, onLogout }) {
                     </h3>
                     {passage}
                   </div>
+
                   <button
                     className="start-button"
                     style={{ fontSize: 18, marginTop: 32 }}
