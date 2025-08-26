@@ -36,7 +36,7 @@ function App() {
           <Route path="/dashboard/:username" element={<Dashboard isLoggedIn={isLoggedIn} onLogout={handleLogout} />} />
           <Route path="/content/english" element={<Content isLoggedIn={isLoggedIn} onLogout={handleLogout} />} />
           <Route path="/content/history" element={<Content isLoggedIn={isLoggedIn} onLogout={handleLogout} />} />
-          <Route path="/content/computer" element={<Content isLoggedIn={isLoggedIn} onLogout={handleLogout} />} />
+          <Route path="/content/information_technology" element={<Content isLoggedIn={isLoggedIn} onLogout={handleLogout} />} />
           <Route path="/self-assess/:subject" element={<SelfAssess isLoggedIn={isLoggedIn} onLogout={handleLogout} />} />
           <Route path="/complete-profile" element={<CompleteProfile isLoggedIn={isLoggedIn} onLogout={handleLogout} />} />
         </Routes>

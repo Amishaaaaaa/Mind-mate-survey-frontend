@@ -376,13 +376,17 @@ function StroopTest({ isLoggedIn, onLogout }) {
           </div>
 
           {/* Final Results */}
-          <div id="final-results" className={`final-results${showFinalResults ? '' : ' hidden'}`} style={{ display: showFinalResults ? 'block' : 'none' }}>
+          <div id="final-results" className={`final-results${showFinalResults ? '' : ' hidden'}`} style={{ display: showFinalResults ? 'block' : 'none', textAlign: 'left' }}>
             {showFinalResults && finalResults && (
               <>
-                <div className="main-heading">Test Complete!</div>
+                <div style={{ textAlign: 'center', fontWeight: 'bold', fontSize: 32, marginBottom: '16px' }}>
+                  Test Complete!
+                </div>
+                <div style={{ marginLeft: '50px'}}>
                 <div className="result-stat"><b>Word Reading: </b> <b>Correct:</b><span className="result-sub">{finalResults.word.score} items, <b>Avg RT:</b> {finalResults.word.rt.toFixed(2)}s, <b>Accuracy:</b> {finalResults.word.acc.toFixed(1)}%</span></div>
                 <div className="result-stat"><b>Color Naming: </b> <b>Correct:</b><span className="result-sub">{finalResults.color.score} items, <b>Avg RT:</b> {finalResults.color.rt.toFixed(2)}s, <b>Accuracy:</b> {finalResults.color.acc.toFixed(1)}%</span></div>
                 <div className="result-stat"><b>Color-Word: </b> <b>Correct:</b><span className="result-sub">{finalResults.colorWord.score} items, <b>Avg RT:</b> {finalResults.colorWord.rt.toFixed(2)}s, <b>Accuracy:</b> {finalResults.colorWord.acc.toFixed(1)}%</span></div>
+                </div>
                 <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', marginTop: '24px' }}>
                   <button className="start-button" onClick={() => navigate(`/dashboard/${username}`)}>
                     Back to Dashboard

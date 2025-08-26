@@ -6,8 +6,8 @@ import { useNavigate } from 'react-router-dom';
 import { TailSpin } from "react-loader-spinner";
 import BASE_URL from '../config';
 
-const READING_TIME_LIMIT = 180; 
-const FEEDBACK_DELAY = 1500; 
+const READING_TIME_LIMIT = 18000; 
+const FEEDBACK_DELAY = 3000; 
 
 function ReadingComprehensionTest({ isLoggedIn, onLogout }) {
   const navigate = useNavigate();
@@ -150,13 +150,13 @@ function ReadingComprehensionTest({ isLoggedIn, onLogout }) {
                       You will be shown a passage to read. Read it carefully. You will have {READING_TIME_LIMIT} seconds to read the passage.
                     </li>
                     <li>
-                      After reading, click "Start Questions" to begin answering questions about the passage.
+                      After reading, click "Start Questions" to begin answering questions about the passage. There will be 5 questions for you to answer, all related to the passage.
                     </li>
                     <li>
                       Questions will appear one at a time. Try to answer them without referring back, but you may click "View Passage" if needed.
                     </li>
                     <li>
-                      Each time you view the passage during questions, it will be counted. So visit only if you need to.
+                      The number of times you visit the passage in between shall be recorded. So visit only if you need to.
                     </li>
                     <li>
                       Your reading time, time taken to answer each question, number of correct answers, and number of times you viewed the passage will be recorded.
@@ -223,6 +223,25 @@ function ReadingComprehensionTest({ isLoggedIn, onLogout }) {
               )}
               {stage === 'questions' && (
                 <>
+                <div 
+                  style={{ 
+                    display: 'flex', 
+                    justifyContent: 'flex-start', 
+                    marginBottom: 16,
+                    width: '100%'
+                  }}
+                >
+                  <button
+                    className="next-test-button"
+                    style={{
+                      marginRight: 12,padding: '6px 16px',fontSize: 15,minWidth: 'auto',width: 'auto',
+                     }}
+                    onClick={handleViewPassage}
+                    disabled={selectedIdx !== null}
+                  >
+                    View Passage
+                  </button>
+                </div>
                   <h2>
                     Question {currentQ + 1} of {questions.length}
                   </h2>
@@ -237,6 +256,7 @@ function ReadingComprehensionTest({ isLoggedIn, onLogout }) {
                         margin: '8px 0',
                         fontSize: 18,
                         transition: 'background 0.2s, color 0.2s',
+                        background: selectedIdx === null ? '#cfd8dc' : undefined,
                       };
                       if (selectedIdx !== null) {
                         if (idx === questions[currentQ].answer) {
@@ -265,14 +285,6 @@ function ReadingComprehensionTest({ isLoggedIn, onLogout }) {
                       );
                     })}
                   </div>
-                  <button
-                    className="next-test-button"
-                    style={{ marginRight: 12 }}
-                    onClick={handleViewPassage}
-                    disabled={selectedIdx !== null}
-                  >
-                    View Passage
-                  </button>
                 </>
               )}
               {stage === 'viewing-passage' && (

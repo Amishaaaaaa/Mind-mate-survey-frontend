@@ -379,9 +379,11 @@ function Content({ isLoggedIn, onLogout }) {
               </Button>
             </>
           )}
-          <Button variant="text" sx={{ mt: 4 }} onClick={() => navigate(`/dashboard/${username}`)}>
-            Back to Dashboard
-          </Button>
+          {!showTest && (
+            <Button variant="text" sx={{ mt: 4 }} onClick={() => navigate(`/dashboard/${username}`)}>
+              Back to Dashboard
+            </Button>
+          )}
         </div>
       </main>
     </div>

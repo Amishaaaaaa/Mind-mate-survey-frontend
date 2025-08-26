@@ -192,7 +192,7 @@ useEffect(() => {
                     '&:hover': { backgroundColor: '#357ABD' },
                   }}
                   onClick={() => navigate('/content/english')}
-                  disabled={subjectChosen && subjectChosen !== 'english'} // ✅ disable if another chosen
+                  disabled={subjectChosen && subjectChosen !== 'english'}
                 >
                   English
                 </Button>
@@ -221,10 +221,10 @@ useEffect(() => {
                     color: '#fff',
                     '&:hover': { backgroundColor: '#218838' },
                   }}
-                  onClick={() => navigate('/content/computer')}
-                  disabled={subjectChosen && subjectChosen !== 'computer'} // ✅
+                  onClick={() => navigate('/content/information_technology')}
+                  disabled={subjectChosen && subjectChosen !== 'information_technology'} // ✅
                 >
-                  Computer
+                  Information Technology
                 </Button>
 
               </Box>

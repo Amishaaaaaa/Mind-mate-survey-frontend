@@ -32,7 +32,7 @@ function Header({ isLoggedIn, onLogout }) {
       <div className="header-left" style={{ cursor: 'pointer' }} onClick={handleLogoClick}>MindMate</div>
       {showNav && (
         <nav className="header-nav">
-        <button className="header-link" onClick={() => navigate('/about')}>About</button>
+        {/* <button className="header-link" onClick={() => navigate('/about')}>About</button> */}
         {isLoggedIn ? (
           <button className="header-link" onClick={handleLogoutClick}>Logout</button>
         ) : (
