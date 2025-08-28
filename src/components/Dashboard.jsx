@@ -168,7 +168,24 @@ useEffect(() => {
             <>
               <Typography variant="h5" sx={{ mb: 2, color: '#2c3e50' }}>
                 <h3>Choose Content to Read:</h3> 
-                <p>(Subject can only be chosen once!)</p>
+                <ul className="reading-list">
+                  <li>Subject can only be chosen once!</li>
+                    <li>
+                      You will be shown 3 passages based on the subject you chose. Read them carefully.
+                      </li>
+                    <li>
+                      After reading each passage, click "Take Test" to begin answering questions related to that particular content. There will be 5 questions for you to answer, all related to the passage.
+                    </li>
+                    <li>
+                      Once you click on "Take Test" after reading the passage, you cannot go back to reading that passage again.
+                    </li>
+                    <li>
+                      After submitting a particular Test, you can take a break if needed, but not when you are taking tests.
+                    </li>
+                    <center>
+                      <b>All the best!</b>
+                    </center>
+                  </ul>
               </Typography>
               <Box
                 sx={{

@@ -317,16 +317,16 @@ function ReadingComprehensionTest({ isLoggedIn, onLogout }) {
               {stage === 'results' && (
                 <div style={{ textAlign: 'center' }}>
                   <h2>Test Complete!</h2>
-                  <p>
+                  {/* <p>
                     <b>Passage Reading Time:</b> {readingTime} seconds
                   </p>
                   <p>
                     <b>Number of times passage viewed during questions:</b> {passageViewCount}
-                  </p>
+                  </p> */}
                   <p>
                     <b>Number of correct answers:</b> {numCorrect} / {questions.length}
                   </p>
-                  <div style={{ margin: '24px 0', textAlign: 'left' }}>
+                  {/* <div style={{ margin: '24px 0', textAlign: 'left' }}>
                     <b>Time taken for each question:</b>
                     <ul>
                       {questionTimes.map((t, i) => (
@@ -335,8 +335,8 @@ function ReadingComprehensionTest({ isLoggedIn, onLogout }) {
                         </li>
                       ))}
                     </ul>
-                  </div>
-                  {passageViewsDuringQuestions.length > 0 && (
+                  </div> */}
+                  {/* {passageViewsDuringQuestions.length > 0 && (
                     <div style={{ margin: '24px 0', textAlign: 'left' }}>
                       <b>Passage views during questions:</b>
                       <ul>
@@ -347,7 +347,7 @@ function ReadingComprehensionTest({ isLoggedIn, onLogout }) {
                         ))}
                       </ul>
                     </div>
-                  )}
+                  )} */}
                   <div style={{ display: 'flex', gap: '16px', justifyContent: 'center' }}>
                     <button
                       className="start-button"

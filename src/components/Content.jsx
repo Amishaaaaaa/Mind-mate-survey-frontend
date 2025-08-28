@@ -196,7 +196,7 @@ function Content({ isLoggedIn, onLogout }) {
           <Typography variant="h5" sx={{ mb: 2 }} textAlign='center'>
           {subject.charAt(0).toUpperCase() + subject.slice(1)} Content
           </Typography>
-          {!showTest && !testCompleted.every(Boolean) && (
+          {!showTest && (
             <>
               {!loadingContent && (
                 <Typography sx={{ mt: 1, fontStyle: 'italic', color: 'gray', textAlign: 'center' }}>
@@ -379,7 +379,7 @@ function Content({ isLoggedIn, onLogout }) {
               </Button>
             </>
           )}
-          {!showTest && (
+            {!showTest && (
             <Button variant="text" sx={{ mt: 4 }} onClick={() => navigate(`/dashboard/${username}`)}>
               Back to Dashboard
             </Button>

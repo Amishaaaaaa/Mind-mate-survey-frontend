@@ -9,7 +9,8 @@ import {
   FormControl,
   InputLabel,
   Select,
-  MenuItem
+  MenuItem,
+  TextField
 } from '@mui/material';
 import BASE_URL from '../config';
 
@@ -26,6 +27,7 @@ const SelfAssess = ({ isLoggedIn, onLogout }) => {
 
   const [order, setOrder] = useState(['', '', '']);
   const [submitted, setSubmitted] = useState(false);
+  const [review, setReview] = useState('');
 
   const handleChange = (index, value) => {
     const updated = [...order];
@@ -41,7 +43,8 @@ const SelfAssess = ({ isLoggedIn, onLogout }) => {
     const payload = {
       username,
       content_type: subject.charAt(0).toUpperCase() + subject.slice(1),
-      preference: `${selectedLevels.join(',')}`
+      preference: `${selectedLevels.join(',')}`,
+      review: review.trim()
     };
 
     try {
@@ -136,6 +139,17 @@ const SelfAssess = ({ isLoggedIn, onLogout }) => {
               </Typography>
             )}
 
+            <TextField
+              label="Your Review"
+              multiline
+              rows={4}
+              fullWidth
+              sx={{ mt: 3 }}
+              value={review}
+              onChange={(e) => setReview(e.target.value)}
+              placeholder="Please write your review on your experience taking the survey.."
+            />
+
             <Button
               variant="contained"
               sx={{ mt: 4 }}
@@ -149,16 +163,16 @@ const SelfAssess = ({ isLoggedIn, onLogout }) => {
                 Review the Passages
               </Typography>
               <Box
-    sx={{
-      display: 'flex',
-      gap: 2,
-      // flexWrap: 'wrap',
-      justifyContent: 'space-between',
-      mt: 2,
-      flexWrap: 'nowrap',
-      overflowX: 'auto'
-    }}
-  >
+                sx={{
+                  display: 'flex',
+                  gap: 2,
+                  // flexWrap: 'wrap',
+                  justifyContent: 'space-between',
+                  mt: 2,
+                  flexWrap: 'nowrap',
+                  overflowX: 'auto'
+                }}
+              >
     {levelKeys.map((level) => {
       const rawContent = levelToPassage[level];
       if (!rawContent) return null;
@@ -184,7 +198,8 @@ const SelfAssess = ({ isLoggedIn, onLogout }) => {
           </Typography>
           <ReactMarkdown
             components={{
-              p: ({ node, ...props }) => <Typography variant="body2" paragraph {...props} />,
+              p: ({ node, ...props }) => <Typography variant="body2" paragraph sx={{ textAlign: 'left' }}
+              {...props} />,
               strong: ({ node, ...props }) => <strong style={{ fontWeight: 600 }} {...props} />,
               em: ({ node, ...props }) => <em style={{ fontStyle: 'italic' }} {...props} />,
             }}

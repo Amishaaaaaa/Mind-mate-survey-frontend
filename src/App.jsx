@@ -10,6 +10,7 @@ import Dashboard from './components/Dashboard'
 import Content from './components/Content'
 import SelfAssess from './components/SelfAssess'
 import CompleteProfile from './components/CompleteProfile'
+import BASE_URL from './config'
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -17,6 +18,22 @@ function App() {
   useEffect(() => {
     const email = localStorage.getItem('email');
     setIsLoggedIn(!!email);
+
+    const wakeBackend = async () => {
+      try {
+        const res = await fetch(`${BASE_URL}/ping`);
+        if (res.ok) {
+          const data = await res.json();
+          console.log("Backend awake:", data);
+        } else {
+          console.warn("Backend ping failed:", res.status);
+        }
+      } catch (err) {
+        console.error("Backend not reachable yet:", err);
+      }
+    };
+
+    wakeBackend();
   }, []);
 
   const handleLogout = () => {
