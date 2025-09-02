@@ -5,8 +5,8 @@ import './StroopTest.css';
 import { useNavigate } from 'react-router-dom';
 import BASE_URL from '../config';
 
-const TEST_DURATION = 5;
-const FEEDBACK_DURATION = 200;
+const TEST_DURATION = 4;
+const FEEDBACK_DURATION = 1000;
 
 const words = ["RED", "GREEN", "BLUE", "YELLOW"];
 const colors = ["red", "green", "blue", "yellow"];
@@ -242,7 +242,11 @@ function StroopTest({ isLoggedIn, onLogout }) {
         setFeedback(isCorrect ? <span className="correct">Correct!</span> : <span className="wrong">Wrong! It was {colorToWord[correctAnswer]}</span>);
         setTimeout(() => {
           setFeedback('');
-          showStimulus();
+          setCurrentWord('');
+          setCurrentColor('');  
+          setTimeout(() => {
+            showStimulus();
+          }, 100)
         }, FEEDBACK_DURATION);
       }
     };

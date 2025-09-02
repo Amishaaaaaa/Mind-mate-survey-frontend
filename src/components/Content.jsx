@@ -40,6 +40,9 @@ function Content({ isLoggedIn, onLogout }) {
 
   const location = useLocation();
   const subject = location.pathname.split('/').pop();
+  const [passageStartTime, setPassageStartTime] = useState(null);
+  const [readingTimeTaken, setReadingTimeTaken] = useState(null);
+  const [questionStartTime, setQuestionStartTime] = useState(null);
 
 
   useEffect(() => {
@@ -108,9 +111,21 @@ function Content({ isLoggedIn, onLogout }) {
     };
   }, [currentSection, username]);
   
+  useEffect(() => {
+  if (content[currentSection]) {
+    setPassageStartTime(Date.now());
+  }
+}, [content[currentSection]]);
 
   const handleStartTest = () => {
     if (testCompleted[currentSection]) return;
+
+    const readingEndTime = Date.now();
+    const readingTime = Math.floor((readingEndTime - passageStartTime) / 1000);
+    setReadingTimeTaken(readingTime);
+    localStorage.setItem(`timeTaken_${sectionOrder[currentSection].key}_level_reading`, readingTime);
+
+    setQuestionStartTime(Date.now());
     setShowTest(true);
     setTestResult('');
     setShowAnswers(false);
@@ -131,7 +146,11 @@ function Content({ isLoggedIn, onLogout }) {
       setValidationMessage('Please answer all questions before submitting the test.');
       return;
     }
-  
+    
+
+    const questionsendTime = Date.now();
+    const answeringTime = Math.floor((questionsendTime - questionStartTime) / 1000); // in seconds
+    localStorage.setItem(`timeTaken_${sectionOrder[currentSection].key}_level_answering`, answeringTime);
     setValidationMessage('');
     
     let correct = 0;
@@ -153,7 +172,9 @@ function Content({ isLoggedIn, onLogout }) {
           username,
           level: sectionOrder[currentSection].key,
           score: correct,
-          total_questions: questions.length
+          total_questions: questions.length,
+          reading_time_taken: readingTimeTaken ? parseInt(readingTimeTaken, 10) : null,
+          questions_time_taken: answeringTime
         })
       });
       if (!res.ok) {

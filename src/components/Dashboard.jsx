@@ -47,18 +47,18 @@ function Dashboard({ isLoggedIn, onLogout }) {
       }
     };
 
-    // const fetchSubjectChosen = async (username) => {
-    //   try {
-    //     const res = await axios.get(`${BASE_URL}/get-passage-data/${username}`);
-    //     if (res.data.status === "success") {
-    //       const passageData = res.data.passage_data;
-    //       console.log("Passage data:", passageData);
-    //       setSubjectChosen(passageData.subject_chosen);
-    //     }
-    //   } catch (err) {
-    //     console.error("Error fetching passage data:", err);
-    //   }
-    // };
+    const fetchSubjectChosen = async (username) => {
+      try {
+        const res = await axios.get(`${BASE_URL}/get-passage-data/${username}`);
+        if (res.data.status === "success") {
+          const passageData = res.data.passage_data;
+          console.log("Passage data:", passageData);
+          setSubjectChosen(passageData.subject_chosen);
+        }
+      } catch (err) {
+        console.error("Error fetching passage data:", err);
+      }
+    };
 
     async function fetchSurveyStatus() {
       try {
@@ -72,7 +72,7 @@ function Dashboard({ isLoggedIn, onLogout }) {
     if (username) {
       fetchSurveyStatus();
       fetchUserData(username);
-      // fetchSubjectChosen(username); 
+      fetchSubjectChosen(username); 
     }
   }, [username]);
 
