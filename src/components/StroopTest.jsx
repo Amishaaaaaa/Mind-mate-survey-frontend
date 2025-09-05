@@ -1615,9 +1615,9 @@ import { useNavigate } from 'react-router-dom';
 import BASE_URL from '../config';
 
 const TRIAL_COUNTS = {
-  1: 5,
-  2: 5,
-  3: 10
+  1: 30,
+  2: 30,
+  3: 60
 };
 
 const FEEDBACK_DURATION = 1000;
@@ -1840,8 +1840,8 @@ function StroopTest({ isLoggedIn, onLogout }) {
     setMaxTrials(trialCount);
 
     if (currentTest === 3) {
-      setCongruentTrialsLeft(5);
-      setIncongruentTrialsLeft(5);
+      setCongruentTrialsLeft(30);
+      setIncongruentTrialsLeft(30);
     }
 
     setFeedback('');
