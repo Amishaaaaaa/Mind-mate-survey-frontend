@@ -42,6 +42,13 @@
   color: #888;
 }
 
+/* Add this CSS to your passage container */
+.no-select {
+  user-select: none;   /* Prevents selection */
+  -webkit-user-select: none; /* For Safari */
+  -ms-user-select: none;     /* For IE/Edge */
+}
+
 .app {
   /* min-height: 100vh; */
   display: flex;

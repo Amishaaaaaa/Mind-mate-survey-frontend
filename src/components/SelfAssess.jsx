@@ -147,13 +147,13 @@ const SelfAssess = ({ isLoggedIn, onLogout }) => {
               sx={{ mt: 3 }}
               value={review}
               onChange={(e) => setReview(e.target.value)}
-              placeholder="Please write your review on your experience taking the survey.."
+              placeholder="Please mention the reason for choosing the above preference order..."
             />
 
             <Button
               variant="contained"
               sx={{ mt: 4 }}
-              disabled={order.includes('') || isDuplicate}
+              disabled={order.includes('') || isDuplicate|| review.trim() === ''}
               onClick={handleSubmit}
             >
               Submit Preference

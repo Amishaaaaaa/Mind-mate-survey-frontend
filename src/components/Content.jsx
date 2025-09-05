@@ -210,7 +210,7 @@ function Content({ isLoggedIn, onLogout }) {
   };
 
   return (
-    <div style={{ minHeight: '100vh', background: '#fff' }}>
+    <div className="no-select" style={{ minHeight: '100vh', background: '#fff' }}>
       <Header isLoggedIn={isLoggedIn} onLogout={onLogout} />
       <main className="reading-content" style={{ alignItems: 'center', justifyContent: 'center' }}>
         <div className="reading-card" style={{ maxWidth: 700, width: '100%', margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -247,11 +247,11 @@ function Content({ isLoggedIn, onLogout }) {
                             )}
                             <ReactMarkdown
                               components={{
-                                h1: ({ node, ...props }) => <Typography variant="h4" gutterBottom {...props} />,
-                                h2: ({ node, ...props }) => <Typography variant="h5" gutterBottom {...props} />,
-                                p: ({ node, ...props }) => <Typography variant="body1" paragraph {...props} />,
-                                strong: ({ node, ...props }) => <strong style={{ fontWeight: 600 }} {...props} />,
-                                em: ({ node, ...props }) => <em style={{ fontStyle: 'italic' }} {...props} />,
+                                h1: ({ node, ...props }) => <Typography variant="h4" gutterBottom {...props} className="no-select" />,
+                                h2: ({ node, ...props }) => <Typography variant="h5" gutterBottom {...props} className="no-select" />,
+                                p: ({ node, ...props }) => <Typography variant="body1" paragraph {...props} className="no-select" />,
+                                strong: ({ node, ...props }) => <strong style={{ fontWeight: 600 }} {...props} className="no-select" />,
+                                em: ({ node, ...props }) => <em style={{ fontStyle: 'italic' }} {...props} className="no-select" />,
                               }}
                             >
                               {body}

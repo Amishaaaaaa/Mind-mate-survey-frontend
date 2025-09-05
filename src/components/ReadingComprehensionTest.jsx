@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { TailSpin } from "react-loader-spinner";
 import BASE_URL from '../config';
 
-const READING_TIME_LIMIT = 18000; 
+const READING_TIME_LIMIT = 180; 
 const FEEDBACK_DELAY = 3000; 
 
 function ReadingComprehensionTest({ isLoggedIn, onLogout }) {
@@ -39,6 +39,8 @@ function ReadingComprehensionTest({ isLoggedIn, onLogout }) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           email,
+          passage_title: passageTitle,
+          passage: passage,
           passage_time_given: READING_TIME_LIMIT,
           user_reading_time: parseFloat(readingTime),
           num_questions: questions.length,
@@ -204,9 +206,9 @@ function ReadingComprehensionTest({ isLoggedIn, onLogout }) {
                       wordWrap: 'break-word',
                       overflowY: 'auto',
                       maxHeight: '70vh'
-                    }}
+                    }} className="no-select"
                   >
-                    <h3 style={{ marginTop: 0, marginBottom: 18, fontWeight: 700 }}>
+                    <h3 style={{ marginTop: 0, marginBottom: 18, fontWeight: 700 }} >
                       {passageTitle}
                     </h3>
                     {passage}
