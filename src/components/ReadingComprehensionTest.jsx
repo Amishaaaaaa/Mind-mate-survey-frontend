@@ -149,7 +149,7 @@ function ReadingComprehensionTest({ isLoggedIn, onLogout }) {
                   <h2>Instructions</h2>
                   <ul className="reading-list">
                     <li>
-                      You will be shown a passage to read. Read it carefully. You will have {READING_TIME_LIMIT} seconds to read the passage.
+                      You will be shown a passage to read. Read it carefully. You will have {READING_TIME_LIMIT} seconds to read the passage. This given time will be enough to read the entire passage at a normal pace.
                     </li>
                     <li>
                       After reading, click "Start Questions" to begin answering questions about the passage. There will be 5 questions for you to answer, all related to the passage.
@@ -236,7 +236,7 @@ function ReadingComprehensionTest({ isLoggedIn, onLogout }) {
                   <button
                     className="next-test-button"
                     style={{
-                      marginRight: 12,padding: '6px 16px',fontSize: 15,minWidth: 'auto',width: 'auto',
+                      marginRight: 12,padding: '16px 16px',fontSize: 18,minWidth: 'auto',width: 'auto', marginTop: 30
                      }}
                     onClick={handleViewPassage}
                     disabled={selectedIdx !== null}

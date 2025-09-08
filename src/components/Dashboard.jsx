@@ -52,7 +52,7 @@ function Dashboard({ isLoggedIn, onLogout }) {
         const res = await axios.get(`${BASE_URL}/get-passage-data/${username}`);
         if (res.data.status === "success") {
           const passageData = res.data.passage_data;
-          console.log("Passage data:", passageData);
+          // console.log("Passage data:", passageData);
           setSubjectChosen(passageData.subject_chosen);
         }
       } catch (err) {
@@ -167,7 +167,7 @@ useEffect(() => {
           {stroopCompleted && comprehensionCompleted ? (
             <>
               <Typography variant="h5" sx={{ mb: 2, color: '#2c3e50' }}>
-                <h3>Choose Content to Read:</h3> 
+                <h3>Choose Content to Read</h3> 
                 <ul className="reading-list">
                   <li>Subject can only be chosen once!</li>
                     <li>

@@ -8,7 +8,7 @@ import './ReadingComprehensionTest.css';
 import BASE_URL from '../config';
 
 function LoginSignup({ setIsLoggedIn }) {
-  const [isLogin, setIsLogin] = useState(true);
+  const [isLogin, setIsLogin] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -93,44 +93,6 @@ function LoginSignup({ setIsLoggedIn }) {
     }
   };
 
-  const handleGoogleSuccess = async (credentialResponse) => {
-    try {
-      const decoded = jwtDecode(credentialResponse.credential);
-      const { email, sub: googleId } = decoded;
-
-      const response = await fetch(`${BASE_URL}/google-login`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, google_id: googleId })
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        setError(data.detail || 'Google login failed');
-        return;
-      }
-
-      localStorage.setItem('email', email);
-      localStorage.setItem('username', data.username);
-
-      if (data.is_new_user) {
-        navigate('/complete-profile'); 
-      } else {
-        setIsLoggedIn(true);
-        navigate(`/dashboard/${data.username}`);
-      }
-
-    } catch (err) {
-      console.error('Google login error:', err);
-      setError('Google login failed');
-    }
-  };
-
-  const handleGoogleFailure = () => {
-    setError('Google login failed. Please try again.');
-  };
-
   return (
     <div className="reading-container">
       <Header />
@@ -165,7 +127,7 @@ function LoginSignup({ setIsLoggedIn }) {
               <form onSubmit={handleSubmit} style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: 18 }}>
                 <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Anonymous Email" required style={{ padding: 12, borderRadius: 8, border: '1px solid #ccc', fontSize: 18 }} />
                 <small style={{ color: '#555', fontSize: 14, marginTop: -10, textAlign: 'left',}}>
-                ⚠️ Do not use your actual email. Please enter an anonymous one (e.g., user123@example.com, xyz23@gmail.com).
+                ⚠️ Do not use your actual email. Please enter an anonymous one (e.g., user123@gmail.com, xyz23@gmail.com).
               </small>
                 <input type="password" name="password" value={formData.password} onChange={handleChange} placeholder="Password" required style={{ padding: 12, borderRadius: 8, border: '1px solid #ccc', fontSize: 18 }} />
                 <input type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} placeholder="Confirm Password" required style={{ padding: 12, borderRadius: 8, border: '1px solid #ccc', fontSize: 18 }} />

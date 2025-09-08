@@ -36,7 +36,7 @@ function Header({ isLoggedIn, onLogout }) {
         {isLoggedIn ? (
           <button className="header-link" onClick={handleLogoutClick}>Logout</button>
         ) : (
-          <button className="header-link" onClick={() => navigate('/login')}>Login</button>
+          <button className="header-link" onClick={() => navigate('/login')}>Login/Signup</button>
         )}
       </nav>
       )}
