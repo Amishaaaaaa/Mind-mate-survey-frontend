@@ -41,6 +41,8 @@ function ReadingComprehensionTest({ isLoggedIn, onLogout }) {
           email,
           passage_title: passageTitle,
           passage: passage,
+          questions: questions,
+          user_answers: answers,
           passage_time_given: READING_TIME_LIMIT,
           user_reading_time: parseFloat(readingTime),
           num_questions: questions.length,
