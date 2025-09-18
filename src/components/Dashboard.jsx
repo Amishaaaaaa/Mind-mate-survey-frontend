@@ -3,7 +3,7 @@ import Header from './Header';
 import './Header.css';
 import './ReadingComprehensionTest.css';
 import CardNavigator from './CardNavigator';
-import { Card, CardContent, Typography, Button, Box } from '@mui/material';
+import { Card, CardContent, Typography, Button, Box, CircularProgress } from '@mui/material';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import BASE_URL from '../config';
@@ -22,6 +22,15 @@ function Dashboard({ isLoggedIn, onLogout }) {
   const [comprehensionCompleted, setComprehensionCompleted] = useState(false);
   const [surveyCompleted, setSurveyCompleted] = useState(false);
   const [subjectChosen, setSubjectChosen] = useState(null);
+  
+  // New loading states for different operations
+  const [initialLoading, setInitialLoading] = useState(true);
+  const [modelLoading, setModelLoading] = useState(false);
+  const [subjectLoading, setSubjectLoading] = useState({
+    english: false,
+    history: false,
+    information_technology: false
+  });
 
   useEffect(() => {
     const fetchUserData = async (username) => {
@@ -44,6 +53,7 @@ function Dashboard({ isLoggedIn, onLogout }) {
         setComprehensionCompleted(comprehension);
       } catch (err) {
         console.error("Error fetching user data:", err);
+        setError("Failed to load user data. Please try again.");
       }
     };
 
@@ -52,7 +62,6 @@ function Dashboard({ isLoggedIn, onLogout }) {
         const res = await axios.get(`${BASE_URL}/get-passage-data/${username}`);
         if (res.data.status === "success") {
           const passageData = res.data.passage_data;
-          // console.log("Passage data:", passageData);
           setSubjectChosen(passageData.subject_chosen);
         }
       } catch (err) {
@@ -67,36 +76,50 @@ function Dashboard({ isLoggedIn, onLogout }) {
       } catch (err) {
         setSurveyCompleted(false);
       }
-    }
+    };
 
-    if (username) {
-      fetchSurveyStatus();
-      fetchUserData(username);
-      fetchSubjectChosen(username); 
-    }
+    const loadInitialData = async () => {
+      if (username) {
+        setInitialLoading(true);
+        try {
+          await Promise.all([
+            fetchSurveyStatus(),
+            fetchUserData(username),
+            fetchSubjectChosen(username)
+          ]);
+        } catch (err) {
+          setError("Failed to load initial data. Please refresh the page.");
+        } finally {
+          setInitialLoading(false);
+        }
+      }
+    };
+
+    loadInitialData();
   }, [username]);
 
+  useEffect(() => {
+    const callmodel = async () => {
+      setModelLoading(true);
+      try {
+        await axios.get(`${BASE_URL}/analyze-scores/${username}`);
+        console.log("Model response added successfully.");
+      } catch (err) {
+        console.error("Model call failed:", err);
+      } finally {
+        setModelLoading(false);
+      }
+    };
 
-useEffect(() => {
-  const callmodel = async () => {
-    try {
-      await axios.get(`${BASE_URL}/analyze-scores/${username}`);
-      console.log("Model response added successfully.");
-    } catch (err) {
-      console.error("Model call failed:", err);
+    if (
+      stroopCompleted &&
+      comprehensionCompleted &&
+      userData &&
+      (!userData.model_response || userData.model_response === "NA")
+    ) {
+      callmodel();
     }
-  };
-
-  if (
-    stroopCompleted &&
-    comprehensionCompleted &&
-    userData &&
-    (!userData.model_response || userData.model_response === "NA")
-  )
-   {
-    callmodel();
-  }
-}, [stroopCompleted, comprehensionCompleted, userData, username]);
+  }, [stroopCompleted, comprehensionCompleted, userData, username]);
 
   const handleNext = () => {
     if (currentIndex < segments.length - 1) {
@@ -110,6 +133,37 @@ useEffect(() => {
     }
   };
 
+  const handleSubjectNavigation = (subject) => {
+    setSubjectLoading(prev => ({ ...prev, [subject]: true }));
+    // Add small delay to show loading state
+    setTimeout(() => {
+      navigate(`/content/${subject}`);
+      setSubjectLoading(prev => ({ ...prev, [subject]: false }));
+    }, 500);
+  };
+
+  // Show loading screen during initial data fetch
+  if (initialLoading) {
+    return (
+      <div style={{ minHeight: '100vh', background: '#f5f7fa' }}>
+        <Header isLoggedIn={isLoggedIn} onLogout={onLogout} />
+        <main className="reading-content" style={{ 
+          display: 'flex', 
+          alignItems: 'center', 
+          justifyContent: 'center', 
+          marginTop: '70px',
+          height: 'calc(100vh - 70px)'
+        }}>
+          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
+            <CircularProgress size={50} sx={{ color: '#4a90e2' }} />
+            <Typography variant="h6" sx={{ color: '#2c3e50' }}>
+              Loading dashboard...
+            </Typography>
+          </Box>
+        </main>
+      </div>
+    );
+  }
 
   if (surveyCompleted) {
     return (
@@ -158,14 +212,18 @@ useEffect(() => {
             boxShadow: '0 4px 16px rgba(0,0,0,0.05)',
           }}
         >
-          {/* {userData && (
-            <Typography variant="h6" sx={{ alignSelf: 'flex-start', mb: 2, color: '#2c3e50' }}>
-              Welcome {userData.name}
-            </Typography>
-          )} */}
-
           {stroopCompleted && comprehensionCompleted ? (
             <>
+              {/* Model loading indicator */}
+              {modelLoading && (
+                <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mb: 3 }}>
+                  <CircularProgress size={30} sx={{ color: '#4a90e2', mb: 1 }} />
+                  {/* <Typography variant="body2" sx={{ color: '#666' }}>
+                    Analyzing your test scores...
+                  </Typography> */}
+                </Box>
+              )}
+
               <Typography variant="h5" sx={{ mb: 2, color: '#2c3e50' }}>
                 <h3>Choose Content to Read</h3> 
                 <ul className="reading-list">
@@ -187,6 +245,7 @@ useEffect(() => {
                     </center>
                   </ul>
               </Typography>
+              
               <Box
                 sx={{
                   display: 'flex',
@@ -203,51 +262,89 @@ useEffect(() => {
                   variant="contained"
                   sx={{
                     minWidth: 180,
+                    minHeight: 48,
                     padding: 2,
                     backgroundColor: '#4a90e2',
                     color: '#fff',
                     '&:hover': { backgroundColor: '#357ABD' },
+                    '&:disabled': { backgroundColor: '#ccc' },
+                    position: 'relative'
                   }}
-                  onClick={() => navigate('/content/english')}
-                  disabled={subjectChosen && subjectChosen !== 'english'}
+                  onClick={() => handleSubjectNavigation('english')}
+                  disabled={(subjectChosen && subjectChosen !== 'english') || subjectLoading.english}
                 >
-                  English
+                  {subjectLoading.english ? (
+                    <CircularProgress size={20} sx={{ color: '#fff' }} />
+                  ) : (
+                    'English'
+                  )}
                 </Button>
 
                 <Button
                   variant="contained"
                   sx={{
                     minWidth: 180,
+                    minHeight: 48,
                     padding: 2,
                     backgroundColor: '#a259ff',
                     color: '#fff',
                     '&:hover': { backgroundColor: '#8e44ec' },
+                    '&:disabled': { backgroundColor: '#ccc' },
+                    position: 'relative'
                   }}
-                  onClick={() => navigate('/content/history')}
-                  disabled={subjectChosen && subjectChosen !== 'history'} // ✅
+                  onClick={() => handleSubjectNavigation('history')}
+                  disabled={(subjectChosen && subjectChosen !== 'history') || subjectLoading.history}
                 >
-                  History
+                  {subjectLoading.history ? (
+                    <CircularProgress size={20} sx={{ color: '#fff' }} />
+                  ) : (
+                    'History'
+                  )}
                 </Button>
 
                 <Button
                   variant="contained"
                   sx={{
                     minWidth: 180,
+                    minHeight: 48,
                     padding: 2,
                     backgroundColor: '#28a745',
                     color: '#fff',
                     '&:hover': { backgroundColor: '#218838' },
+                    '&:disabled': { backgroundColor: '#ccc' },
+                    position: 'relative'
                   }}
-                  onClick={() => navigate('/content/information_technology')}
-                  disabled={subjectChosen && subjectChosen !== 'information_technology'} // ✅
+                  onClick={() => handleSubjectNavigation('information_technology')}
+                  disabled={(subjectChosen && subjectChosen !== 'information_technology') || subjectLoading.information_technology}
                 >
-                  Information Technology
+                  {subjectLoading.information_technology ? (
+                    <CircularProgress size={20} sx={{ color: '#fff' }} />
+                  ) : (
+                    'Information Technology'
+                  )}
                 </Button>
-
               </Box>
 
-              {loading && <div style={{ marginTop: 18 }}>Loading...</div>}
-              {error && <div style={{ color: '#e74c3c', marginTop: 18 }}>{error}</div>}
+              {loading && (
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mt: 2 }}>
+                  <CircularProgress size={20} sx={{ color: '#4a90e2' }} />
+                  <Typography variant="body2">Loading...</Typography>
+                </Box>
+              )}
+              
+              {error && (
+                <Box sx={{ 
+                  color: '#e74c3c', 
+                  mt: 2, 
+                  p: 2, 
+                  backgroundColor: '#ffebee', 
+                  borderRadius: 1,
+                  border: '1px solid #ffcdd2'
+                }}>
+                  {error}
+                </Box>
+              )}
+              
               {segments.length > 0 && (
                 <>
                   <Typography variant="h5" sx={{ mt: 4, color: '#2c3e50' }}>
@@ -282,6 +379,7 @@ useEffect(() => {
                       backgroundColor: '#4a90e2',
                       color: '#fff',
                       '&:hover': { backgroundColor: '#357ABD' },
+                      minHeight: 48
                     }}
                     onClick={() => navigate('/stroop')}
                   >
@@ -295,6 +393,7 @@ useEffect(() => {
                       backgroundColor: '#a259ff',
                       color: '#fff',
                       '&:hover': { backgroundColor: '#8e44ec' },
+                      minHeight: 48
                     }}
                     onClick={() => navigate('/comprehension')}
                   >
@@ -302,7 +401,18 @@ useEffect(() => {
                   </Button>
                 )}
               </Box>
-              {error && <div style={{ color: '#e74c3c', marginTop: 18 }}>{error}</div>}
+              {error && (
+                <Box sx={{ 
+                  color: '#e74c3c', 
+                  mt: 2, 
+                  p: 2, 
+                  backgroundColor: '#ffebee', 
+                  borderRadius: 1,
+                  border: '1px solid #ffcdd2'
+                }}>
+                  {error}
+                </Box>
+              )}
             </>
           )}
         </div>

@@ -25,7 +25,8 @@ function Header({ isLoggedIn, onLogout }) {
     }
   };
 
-  const showNav = location.pathname !== '/login';
+  // Hide nav on login page AND landing page
+  const showNav = location.pathname !== '/login' && location.pathname !== '/';
 
   return (
     <header className="main-header">
@@ -44,4 +45,4 @@ function Header({ isLoggedIn, onLogout }) {
   );
 }
 
-export default Header; 
+export default Header;
