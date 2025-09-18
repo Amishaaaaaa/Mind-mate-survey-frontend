@@ -168,3 +168,15 @@
     max-width: 100%;
   }
 } 
+
+.consent-checkbox {
+  width: 15px;
+  height: 15px;
+  margin-right: 8px;
+  cursor: pointer;
+}
+
+.get-started-button.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

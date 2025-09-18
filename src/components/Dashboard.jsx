@@ -171,16 +171,16 @@ useEffect(() => {
                 <ul className="reading-list">
                   <li>Subject can only be chosen once!</li>
                     <li>
-                      You will be shown 3 passages based on the subject you chose. Read them carefully.
+                      You will be shown <strong>3 passages</strong> based on the subject you chose. Read them carefully.
                       </li>
                     <li>
-                      After reading each passage, click "Take Test" to begin answering questions related to that particular content. There will be 5 questions for you to answer, all related to the passage.
+                      After reading each passage, click <strong>"Take Test"</strong> to begin answering questions related to that particular content. There will be <strong>5 questions</strong> for you to answer, all related to the passage.
                     </li>
                     <li>
-                      Once you click on "Take Test" after reading the passage, you cannot go back to reading that passage again.
+                      Once you click on "Take Test" after reading the passage, you <strong>cannot</strong> go back to reading that passage again.
                     </li>
                     <li>
-                      After submitting a particular Test, you can take a break if needed, but not when you are taking tests.
+                      After submitting a particular Test, you <strong>can take a break if needed, but not when you are taking tests.</strong>
                     </li>
                     <center>
                       <b>All the best!</b>

@@ -140,14 +140,10 @@ function LoginSignup({ setIsLoggedIn }) {
                 </select>
                 <select name="grade" value={formData.grade} onChange={handleChange} required style={{ padding: 12, borderRadius: 8, border: '1px solid #ccc', fontSize: 18 }}>
                   <option value="">Select Grade</option>
-                  <option value="8th">8th</option>
-                  <option value="9th">9th</option>
-                  <option value="10th">10th</option>
-                  <option value="11th">11th</option>
-                  <option value="12th">12th</option>
-                  <option value="UG">UG</option>
-                  <option value="PG">PG</option>
-                  <option value="PhD">PhD</option>
+                  <option value="UG1">UG1</option>
+                  <option value="UG2">UG2</option>
+                  <option value="UG3">UG3</option>
+                  <option value="UG4">UG4</option>
                 </select>
                 {error && <p style={{ color: 'red', margin: 0 }}>{error}</p>}
                 <button className="start-button" type="submit" style={{ fontSize: 18, marginTop: 8 }} disabled={loading}>

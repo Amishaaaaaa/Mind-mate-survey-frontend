@@ -1,5 +1,5 @@
 import { useLocation, useParams } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Header from './Header';
 import ReactMarkdown from 'react-markdown';
 import {
@@ -70,6 +70,9 @@ const SelfAssess = ({ isLoggedIn, onLogout }) => {
     levelToPassage[lvl] = passages[idx];
   });
 
+  useEffect(() => {
+  window.scrollTo(0, 100);
+  }, []);
 
   return (
     <div>
@@ -110,9 +113,8 @@ const SelfAssess = ({ isLoggedIn, onLogout }) => {
               Self Assessment - {subject.charAt(0).toUpperCase() + subject.slice(1)}
             </Typography>
             <Typography variant="body1" gutterBottom>
-              Choose the passages in the order of your preference.
+              Choose the passages in the order of your preference based on readability and content explanation.
             </Typography>
-
             {['Most Convenient', 'Moderately Convenient', 'Least Convenient'].map((label, index) => (
               <FormControl fullWidth sx={{ mt: 2 }} variant="outlined">
               <InputLabel id={`select-label-${index}`}>{label}</InputLabel>
@@ -140,14 +142,14 @@ const SelfAssess = ({ isLoggedIn, onLogout }) => {
             )}
 
             <TextField
-              label="Your Review"
+              label="Please mention the reason for choosing the contents in this order."
               multiline
               rows={4}
               fullWidth
               sx={{ mt: 3 }}
               value={review}
               onChange={(e) => setReview(e.target.value)}
-              placeholder="Please mention the reason for choosing the above preference order..."
+              // placeholder="Choose the passages in the order of your preference based on readability and content explanation."
             />
 
             <Button
