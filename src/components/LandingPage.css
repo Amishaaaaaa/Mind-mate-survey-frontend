@@ -4,8 +4,7 @@
   width: 100vw;
   height: 100vh;
 
-  /* Background with overlay */
-  background: linear-gradient(135deg, #977b97 0%, #200e6d 100%),
+  background: linear-gradient(#977b97, #200e6d),
               url('/background.jpg') no-repeat center center fixed;
   background-size: cover;
 
@@ -16,7 +15,6 @@
   overflow-x: hidden;
   box-sizing: border-box;
 }
-
 
 .main-header {
   width: 100%;
