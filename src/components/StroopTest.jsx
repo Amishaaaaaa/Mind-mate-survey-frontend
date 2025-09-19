@@ -1434,9 +1434,9 @@ import { useNavigate } from 'react-router-dom';
 import BASE_URL from '../config';
 
 const TRIAL_COUNTS = {
-  1: 30,
-  2: 30,
-  3: 60
+  1: 5,
+  2: 5,
+  3: 10
 };
 
 const FEEDBACK_DURATION = 1000;
@@ -1507,18 +1507,14 @@ function StroopTest({ isLoggedIn, onLogout }) {
   
   const getRandomItem = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
-  // Create shuffled sequence of exactly 30 congruent and 30 incongruent trials
   const createTrialSequence = () => {
     const sequence = [];
-    // Add 30 congruent trials
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < 5; i++) {
       sequence.push(true);
     }
-    // Add 30 incongruent trials
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < 5; i++) {
       sequence.push(false);
     }
-    // Shuffle the sequence
     for (let i = sequence.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [sequence[i], sequence[j]] = [sequence[j], sequence[i]];
@@ -1961,7 +1957,7 @@ function StroopTest({ isLoggedIn, onLogout }) {
   }, []);
 
   return (
-    <div className="stroop-container">
+    <div className="stroop-container stroop-bg">
       <Header isLoggedIn={isLoggedIn} onLogout={onLogout} />
       <main className="stroop-content">
         <div id="game-container">
@@ -1989,7 +1985,7 @@ function StroopTest({ isLoggedIn, onLogout }) {
                   You will complete {TRIAL_COUNTS[1]} items in this test.<br /><br />
                   Try to be both fast and accurate!
                 </div>
-                <button className="start-button" onClick={startTest}>Start Test</button>
+                <button className="start-button get-started-button" onClick={startTest}>Start Test</button>
               </div>
             )}
             {currentTrial > 0 && !showIntermediateScore && !showFinalResults && (
@@ -2026,7 +2022,7 @@ function StroopTest({ isLoggedIn, onLogout }) {
                   <br />
                   Try to be both fast and accurate!
                 </div>
-                <button className="start-button" onClick={startTest}>Start Test</button>
+                <button className="start-button get-started-button" onClick={startTest}>Start Test</button>
               </div>
             )}
             {currentTrial > 0 && !showIntermediateScore && !showFinalResults && (
@@ -2064,7 +2060,7 @@ function StroopTest({ isLoggedIn, onLogout }) {
                  <br />
                   Remember: Name the COLOR of the ink, not the word!
                 </div>
-                <button className="start-button" onClick={startTest}>Start Test</button>
+                <button className="start-button get-started-button" onClick={startTest}>Start Test</button>
               </div>
             )}
             {currentTrial > 0 && !showIntermediateScore && !showFinalResults && (
@@ -2118,7 +2114,7 @@ function StroopTest({ isLoggedIn, onLogout }) {
                      <p>Avg. Reaction Time: {(intermediateScore.avgRT.toFixed(2))} ms</p>
                    </>
                 )}
-                <button className="next-test-button" onClick={currentTest === 3 ? calculateFinalResults : proceedToNextTest}>
+                <button className="next-test-button get-started-button" onClick={currentTest === 3 ? calculateFinalResults : proceedToNextTest}>
                   {currentTest === 3 ? 'View Final Results' : 'Start Next Test'}
                 </button>
               </>
@@ -2140,7 +2136,7 @@ function StroopTest({ isLoggedIn, onLogout }) {
                   <div className="result-stat"><b>Color-Word (Incongruent): </b> <span className="result-sub"><b>Avg RT:</b> {finalResults.colorWord.incongruent.rt.toFixed(2)}ms</span></div>
                 </div>
                 <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', marginTop: '24px' }}>
-                  <button className="start-button" onClick={() => navigate(`/dashboard/${username}`)}>
+                  <button className="start-button get-started-button" onClick={() => navigate(`/dashboard/${username}`)}>
                     Back to Dashboard
                   </button>
                 </div>

@@ -587,7 +587,7 @@ function ReadingComprehensionTest({ isLoggedIn, onLogout }) {
                     </center>
                   </ul>
                   <button
-                    className="start-button"
+                    className="start-button get-started-button"
                     style={{ fontSize: 18, marginTop: 16 }}
                     onClick={handleReadPassage}
                   >
@@ -634,7 +634,7 @@ function ReadingComprehensionTest({ isLoggedIn, onLogout }) {
                   </div>
 
                   <button
-                    className="start-button"
+                    className="start-button get-started-button"
                     style={{ fontSize: 18, marginTop: 32 }}
                     onClick={handleStartQuestions}
                   >
@@ -655,7 +655,7 @@ function ReadingComprehensionTest({ isLoggedIn, onLogout }) {
                     }}
                   >
                     <button
-                      className="next-test-button"
+                      className="next-test-button get-started-button"
                       style={{
                         marginRight: 12,padding: '16px 16px',fontSize: 18,minWidth: 'auto',width: 'auto', marginTop: 30
                        }}
@@ -787,7 +787,7 @@ function ReadingComprehensionTest({ isLoggedIn, onLogout }) {
                   )} */}
                   <div style={{ display: 'flex', gap: '16px', justifyContent: 'center' }}>
                     <button
-                      className="start-button"
+                      className="start-button get-started-button"
                       onClick={() => navigate(`/dashboard/${username}`)}
                     >
                       Back to Dashboard

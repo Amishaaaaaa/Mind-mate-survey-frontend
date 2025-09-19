@@ -127,7 +127,8 @@ function LandingPage({ isLoggedIn, onLogout }) {
       <main className="landing-content">
         <h1 className="landing-title">Welcome to MindMate-Study</h1>
         <p className="landing-description">
-          MindMate helps you assess your attention, memory, and vocabulary skills.
+          Try taking this study at a quiet place on your laptop.
+          Time for the Study: 30 minutes (Approx.)
         </p>
 
         {/* Only show consent form for non-logged-in users */}
