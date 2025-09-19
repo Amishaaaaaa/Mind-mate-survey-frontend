@@ -140,7 +140,7 @@ useEffect(() => {
   }
 
   return (
-    <div style={{ minHeight: '100vh', background: '#f5f7fa' }}>
+    <div className='reading-container'>
       <Header isLoggedIn={isLoggedIn} onLogout={onLogout} />
       <main className="reading-content" style={{ alignItems: 'center', justifyContent: 'center', marginTop: '70px' }}>
         <div

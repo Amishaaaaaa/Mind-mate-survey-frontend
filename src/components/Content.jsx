@@ -1635,7 +1635,7 @@ function Content({ isLoggedIn, onLogout }) {
   }, []);
 
   return (
-    <div className="no-select" style={{ minHeight: '100vh', background: '#fff' }}>
+    <div className="no-select" style={{ minHeight: '100vh', background: 'linear-gradient(135deg, #977b97 0%, #200e6d 100%)' }}>
       <Header isLoggedIn={isLoggedIn} onLogout={onLogout} />
       <main className="reading-content" style={{ alignItems: 'center', justifyContent: 'center' }}>
         <div className="reading-card" style={{ maxWidth: 700, width: '100%', margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -1814,7 +1814,7 @@ function Content({ isLoggedIn, onLogout }) {
                   </Typography>
                 )}
                 <Box sx={{ textAlign: 'center' }}>
-                  <Button type="submit" variant="contained" color="success" sx={{ mt: 2 }}>
+                  <Button className='get-started-button' type="submit" variant="contained" sx={{ mt: 2 }}>
                     Submit Test
                   </Button>
                 </Box>
@@ -1823,7 +1823,7 @@ function Content({ isLoggedIn, onLogout }) {
           )}
 
           {testCompleted[currentSection] && currentSection < 2 && (
-            <Button variant="contained" sx={{ mt: 3 }} onClick={handleNextSection}>
+            <Button className='get-started-button' variant="contained" sx={{ mt: 3 }} onClick={handleNextSection}>
               Next Section
             </Button>
           )}
@@ -1834,8 +1834,8 @@ function Content({ isLoggedIn, onLogout }) {
                 All sections completed!
               </Typography>
               <Button
+              className='get-started-button'
                 variant="contained"
-                color="primary"
                 sx={{ mt: 2 }}
                 onClick={async () => {
                   const viewedOrder = sectionOrder.map(sec => sec.label).join(',');

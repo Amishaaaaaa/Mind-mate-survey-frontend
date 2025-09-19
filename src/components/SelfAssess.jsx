@@ -13,6 +13,8 @@ import {
   TextField
 } from '@mui/material';
 import BASE_URL from '../config';
+import './ReadingComprehensionTest.css';
+
 
 const SelfAssess = ({ isLoggedIn, onLogout }) => {
   const { subject } = useParams();
@@ -75,15 +77,16 @@ const SelfAssess = ({ isLoggedIn, onLogout }) => {
   }, []);
 
   return (
-    <div>
+    <div className='reading-container'>
       <Header isLoggedIn={isLoggedIn} onLogout={onLogout} />
+    <div className='reading-container'>
     <Box
       sx={{
         width: '100vw',
         minHeight: '100vh',
         display: 'flex',
         justifyContent: 'center',
-        bgcolor: '#f9f9f9',
+        background: 'linear-gradient(135deg, #977b97 0%, #200e6d 100%)',
         py: 10,
       }}
     >
@@ -113,7 +116,10 @@ const SelfAssess = ({ isLoggedIn, onLogout }) => {
               Self Assessment - {subject.charAt(0).toUpperCase() + subject.slice(1)}
             </Typography>
             <Typography variant="body1" gutterBottom>
-              Choose the passages in the order of your preference based on readability and content explanation.
+              Choose the passages in the order of your preference based on <strong>readability</strong> and <strong>content explanation.</strong>
+            </Typography>
+            <Typography>
+              Passage Visible at the bottom of the page. ⬇️
             </Typography>
             {['Most Convenient', 'Moderately Convenient', 'Least Convenient'].map((label, index) => (
               <FormControl fullWidth sx={{ mt: 2 }} variant="outlined">
@@ -154,14 +160,15 @@ const SelfAssess = ({ isLoggedIn, onLogout }) => {
 
             <Button
               variant="contained"
-              sx={{ mt: 4 }}
+              sx={{ mt: 4}}
+              className='get-started-button'
               disabled={order.includes('') || isDuplicate|| review.trim() === ''}
               onClick={handleSubmit}
             >
               Submit Preference
             </Button>
-            <Box sx={{ mt: 6 }}>
-              <Typography variant="h6" gutterBottom>
+            <Box sx={{ mt: 24 }}>
+              <Typography variant="h6" gutterBottom sx={{ color: 'white' }}>
                 Review the Passages
               </Typography>
               <Box
@@ -219,6 +226,7 @@ const SelfAssess = ({ isLoggedIn, onLogout }) => {
         )}
       </Box>
     </Box>
+    </div>
     </div>
   );
 };

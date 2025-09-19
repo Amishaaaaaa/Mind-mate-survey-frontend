@@ -97,7 +97,7 @@ function LoginSignup({ setIsLoggedIn }) {
     <div className="reading-container">
       <Header />
       <main className="reading-content" style={{ alignItems: 'center', justifyContent: 'center' }}>
-        <div className="reading-card" style={{ maxWidth: 350, width: '100%', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 18 }}>
+        <div className="reading-card" style={{ maxWidth: 350, width: '100%', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 18, border: '2px solid blue', borderRadius: 10, padding: 20}}>
           {isLogin ? (
             <>
               <h1>Login</h1>
@@ -105,7 +105,7 @@ function LoginSignup({ setIsLoggedIn }) {
                 <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Email" required style={{ padding: 12, borderRadius: 8, border: '1px solid #ccc', fontSize: 18 }} />
                 <input type="password" name="password" value={formData.password} onChange={handleChange} placeholder="Password" required style={{ padding: 12, borderRadius: 8, border: '1px solid #ccc', fontSize: 18 }} />
                 {error && <p style={{ color: 'red', margin: 0 }}>{error}</p>}
-                <button className="start-button" type="submit" style={{ fontSize: 18, marginTop: 8 }} disabled={loading}>
+                <button className="start-button get-started-button" type="submit" disabled={loading}>
                   {loading ? "Loading..." : "Login"}
                 </button>
               </form>
@@ -116,7 +116,7 @@ function LoginSignup({ setIsLoggedIn }) {
 
               <p style={{ marginTop: 18, fontSize: 16 }}>
                 Don't have an account?{' '}
-                <span style={{ color: '#2980b9', cursor: 'pointer', fontWeight: 600 }} onClick={() => setIsLogin(false)}>
+                <span className='get-started-button' onClick={() => setIsLogin(false)}>
                   Sign up
                 </span>
               </p>
@@ -146,13 +146,13 @@ function LoginSignup({ setIsLoggedIn }) {
                   <option value="UG4">UG4</option>
                 </select>
                 {error && <p style={{ color: 'red', margin: 0 }}>{error}</p>}
-                <button className="start-button" type="submit" style={{ fontSize: 18, marginTop: 8 }} disabled={loading}>
+                <button className="start-button get-started-button" type="submit" disabled={loading}>
                   {loading ? "Loading..." : "Sign Up"}
                 </button>
               </form>
               <p style={{ marginTop: 18, fontSize: 16 }}>
                 Already have an account?{' '}
-                <span style={{ color: '#2980b9', cursor: 'pointer', fontWeight: 600 }} onClick={() => setIsLogin(true)}>
+                <span className='get-started-button' onClick={() => setIsLogin(true)}>
                   Login
                 </span>
               </p>
