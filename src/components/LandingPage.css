@@ -6,7 +6,7 @@
 
   /* Background with overlay */
   background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
-              url('../assets/background.jpg') no-repeat center center fixed;
+              url('/background.jpg') no-repeat center center fixed;
   background-size: cover;
 
   display: flex;
