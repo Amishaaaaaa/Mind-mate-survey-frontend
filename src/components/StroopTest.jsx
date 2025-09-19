@@ -6,9 +6,9 @@ import { useNavigate } from 'react-router-dom';
 import BASE_URL from '../config';
 
 const TRIAL_COUNTS = {
-  1: 5,
-  2: 5,
-  3: 10
+  1: 30,
+  2: 30,
+  3: 60
 };
 
 const FEEDBACK_DURATION = 1000;
@@ -81,10 +81,10 @@ function StroopTest({ isLoggedIn, onLogout }) {
 
   const createTrialSequence = () => {
     const sequence = [];
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 30; i++) {
       sequence.push(true);
     }
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 30; i++) {
       sequence.push(false);
     }
     for (let i = sequence.length - 1; i > 0; i--) {
